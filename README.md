@@ -1,7 +1,7 @@
 Google Cloud Storage for Craft CMS
 =======================
 
-This plugin provides an [Google Cloud Storage](https://cloud.google.com/storage/) integration for [Craft CMS](https://craftcms.com/).
+This plugin provides a [Google Cloud Storage](https://cloud.google.com/storage/) integration for [Craft CMS](https://craftcms.com/).
 
 
 ## Requirements
