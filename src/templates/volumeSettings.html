@@ -1,0 +1,105 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.textField({
+    label: "Project Id"|t('app'),
+    id: 'projectId',
+    name: 'projectId',
+    value: volume.projectId,
+    errors: volume.getErrors('projectId'),
+    class: 'google-project-id',
+    instructions: 'Your Google project id.'|t('app'),
+    required: true
+}) }}
+
+{{ forms.textareaField({
+    label: "Contents of the access key file"|t('app'),
+    id: 'keyFileContents',
+    name: 'keyFileContents',
+    value: volume.keyFileContents,
+    errors: volume.getErrors('keyFileContents'),
+    class: 'google-key-file-contents',
+    instructions: 'You can leave this field empty if you are using <a href=\"{link}\" title=\"Application default credentials\" target=\"_blank\">Application default credentials</a>.'|t('app', {'link': 'https://github.com/google/google-auth-library-php#application-default-credentials'}),
+    rows: 8,
+    cols: 50
+}) }}
+
+{% set bucketInput %}
+    <table class="inputs">
+        <tr>
+            <td>
+                {{ forms.select({
+                    id: 'bucket',
+                    name: 'bucket',
+                    options: { (volume.bucket): volume.bucket },
+                    value: volume.bucket,
+                    readonly: true,
+                    class: 'google-bucket-select'
+                }) }}
+            </td>
+            <td>
+                <div class="btn google-refresh-buckets">{{ "Refresh"|t('app') }}</div>
+            </td>
+            <td>
+                <div class="spinner hidden"></div>
+            </td>
+        </tr>
+    </table>
+
+{% endset %}
+
+{{ forms.field({
+    label: "Bucket"|t('app'),
+    id: 'bucket'
+}, bucketInput) }}
+
+{{ forms.textField({
+    label: "Subfolder"|t('app'),
+    instructions: "If you want to use a bucket’s subfolder as a Volume, specify the path to use here."|t('app'),
+    id: 'subfolder',
+    class: 'ltr',
+    name: 'subfolder',
+    value: volume.subfolder,
+    errors: volume.getErrors('subfolder'),
+    required: false,
+    placeholder: "path/to/subfolder"|t('app')
+}) }}
+
+<hr>
+
+{% set cacheInput %}
+    {% set expires = (volume.expires|length > 0 ? volume.expires|split(' ') : ['', ''])%}
+
+    <table class="inputs">
+        <tr>
+            <td>
+                {{ forms.textField({
+                    id: 'expiresAmount',
+                    value: expires[0],
+                    size: 2,
+                    class: 'expires-amount'
+                }) }}
+            </td>
+            <td>
+                {{ forms.select({
+                    id: 'expiresPeriod',
+                    options: periods,
+                    value: expires[1],
+                    class: 'expires-period'
+                }) }}
+            </td>
+        </tr>
+    </table>
+    {{ forms.hidden({
+        name: "expires",
+        value: volume.expires,
+        class: "expires-combined"
+    }) }}
+{% endset %}
+
+{{ forms.field({
+    label: "Cache Duration"|t,
+    instructions: "The Cache-Control duration that assets should be uploaded to the cloud with.",
+    id: 'cacheDuration',
+}, cacheInput) }}
+
+{% do view.registerAssetBundle("craft\\googlecloud\\GoogleCloudBundle") %}
