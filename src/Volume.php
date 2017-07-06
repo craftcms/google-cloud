@@ -91,7 +91,7 @@ class Volume extends \craft\base\Volume
      */
     public function getSettingsHtml()
     {
-        return Craft::$app->getView()->renderTemplate('googlecloud/volumeSettings', [
+        return Craft::$app->getView()->renderTemplate('google-cloud/volumeSettings', [
             'volume' => $this,
             'periods' => array_merge(['' => ''], Assets::periodList()),
         ]);
@@ -152,7 +152,7 @@ class Volume extends \craft\base\Volume
                 } else {
                     $this->filesystem()->delete($object['path']);
                 }
-            } catch (\Exception $exception) {
+            } catch (\Throwable $exception) {
                 // Push through the pain.
                 continue;
             }

@@ -1,24 +1,24 @@
 {% import "_includes/forms" as forms %}
 
 {{ forms.textField({
-    label: "Project Id"|t('app'),
+    label: "Project ID"|t('google-cloud'),
     id: 'projectId',
     name: 'projectId',
     value: volume.projectId,
     errors: volume.getErrors('projectId'),
     class: 'google-project-id',
-    instructions: 'Your Google project id.'|t('app'),
+    instructions: 'Your Google project ID'|t('google-cloud'),
     required: true
 }) }}
 
 {{ forms.textareaField({
-    label: "Contents of the access key file"|t('app'),
+    label: "Contents of the access key file"|t('google-cloud'),
     id: 'keyFileContents',
     name: 'keyFileContents',
     value: volume.keyFileContents,
     errors: volume.getErrors('keyFileContents'),
     class: 'google-key-file-contents',
-    instructions: 'You can leave this field empty if you are using <a href=\"{link}\" title=\"Application default credentials\" target=\"_blank\">Application default credentials</a>.'|t('app', {'link': 'https://github.com/google/google-auth-library-php#application-default-credentials'}),
+    instructions: 'You can leave this field empty if you are using <a href=\"{link}\" title=\"Application default credentials\" target=\"_blank\">Application default credentials</a>.'|t('google-cloud', {'link': 'https://github.com/google/google-auth-library-php#application-default-credentials'}),
     rows: 8,
     cols: 50
 }) }}
@@ -37,7 +37,7 @@
                 }) }}
             </td>
             <td>
-                <div class="btn google-refresh-buckets">{{ "Refresh"|t('app') }}</div>
+                <div class="btn google-refresh-buckets">{{ "Refresh"|t('google-cloud') }}</div>
             </td>
             <td>
                 <div class="spinner hidden"></div>
@@ -48,20 +48,20 @@
 {% endset %}
 
 {{ forms.field({
-    label: "Bucket"|t('app'),
+    label: "Bucket"|t('google-cloud'),
     id: 'bucket'
 }, bucketInput) }}
 
 {{ forms.textField({
-    label: "Subfolder"|t('app'),
-    instructions: "If you want to use a bucket’s subfolder as a Volume, specify the path to use here."|t('app'),
+    label: "Subfolder"|t('google-cloud'),
+    instructions: "If you want to use a bucket’s subfolder as a Volume, specify the path to use here."|t('google-cloud'),
     id: 'subfolder',
     class: 'ltr',
     name: 'subfolder',
     value: volume.subfolder,
     errors: volume.getErrors('subfolder'),
     required: false,
-    placeholder: "path/to/subfolder"|t('app')
+    placeholder: "path/to/subfolder"|t('google-cloud')
 }) }}
 
 <hr>
@@ -97,7 +97,7 @@
 {% endset %}
 
 {{ forms.field({
-    label: "Cache Duration"|t,
+    label: "Cache Duration"|t('google-cloud'),
     instructions: "The Cache-Control duration that assets should be uploaded to the cloud with.",
     id: 'cacheDuration',
 }, cacheInput) }}

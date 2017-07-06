@@ -27,7 +27,7 @@
     "rss": "https://github.com/craftcms/google-cloud/commits/master.atom"
   },
   "require": {
-    "craftcms/cms": "~3.0.0-beta.1",
+    "craftcms/cms": "~3.0.0-beta.20",
     "superbalist/flysystem-google-storage": "5.0.0"
   },
   "autoload": {
@@ -37,7 +37,7 @@
   },
   "extra": {
     "name": "Google Cloud Storage",
-    "handle": "googleCloud",
+    "handle": "google-cloud",
     "changelogUrl": "https://raw.githubusercontent.com/craftcms/google-cloud/master/CHANGELOG.md",
     "downloadUrl": "https://github.com/craftcms/google-cloud/archive/master.zip"
   }
