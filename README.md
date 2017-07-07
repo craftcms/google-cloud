@@ -7,7 +7,7 @@ This plugin provides a [Google Cloud Storage](https://cloud.google.com/storage/)
 
 ## Requirements
 
-This plugin requires Craft CMS 3.0.0-beta.1 or later.
+This plugin requires Craft CMS 3.0.0-beta.20 or later.
 
 ## Installation
 
