@@ -77,3 +77,18 @@ $googleBucketSelect.change(function()
 
 	$('.volume-url').val($selectedOption.data('url-prefix'));
 });
+
+
+var googleChangeExpiryValue = function ()
+{
+    var parent = $(this).parents('.field'),
+        amount = parent.find('.google-expires-amount').val(),
+        period = parent.find('.google-expires-period select').val();
+
+    var combinedValue = (parseInt(amount, 10) === 0 || period.length === 0) ? '' : amount + ' ' + period;
+
+    parent.find('[type=hidden]').val(combinedValue);
+};
+
+$('.google-expires-amount').keyup(googleChangeExpiryValue).change(googleChangeExpiryValue);
+$('.google-expires-period select').change(googleChangeExpiryValue);

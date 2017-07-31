@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## Unreleased
+
+### Fixed
+- Fixed a bug where cache duration information was not being saved for Volumes.
+
 ## 1.0.1 - 2017-07-07
 
 ### Changed
