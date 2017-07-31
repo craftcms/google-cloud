@@ -202,7 +202,11 @@ class Volume extends \craft\base\Volume
             $now = new DateTime();
             $expires->modify('+'.$this->expires);
             $diff = $expires->format('U') - $now->format('U');
-            $config['CacheControl'] = 'max-age='.$diff.', must-revalidate';
+
+            if (!isset($config['metadata'])) {
+                $config['metadata'] = [];
+            }
+            $config['metadata']['cacheControl'] = 'max-age='.$diff.', must-revalidate';
         }
 
         return parent::addFileMetadataToConfig($config);
