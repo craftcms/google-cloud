@@ -4,6 +4,7 @@
  * @copyright Copyright (c) 2015 Pixel & Tonic, Inc.
  * @license   http://buildwithcraft.com/license
  */
+
 namespace craft\googlecloud;
 
 use Craft;
@@ -175,7 +176,7 @@ class Volume extends \craft\base\Volume
         $config = $this->_getConfigArray();
 
         $client = static::client($config);
-        $bucket= $client->bucket($this->bucket);
+        $bucket = $client->bucket($this->bucket);
 
         return new GoogleStorageAdapter($client, $bucket, $this->subfolder);
     }
