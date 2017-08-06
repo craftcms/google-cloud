@@ -8,6 +8,7 @@
 namespace craft\googlecloud;
 
 use Craft;
+use craft\flysystem\FlysystemVolume;
 use craft\helpers\Assets;
 use craft\helpers\DateTimeHelper;
 use craft\helpers\Json;
@@ -27,7 +28,7 @@ use Superbalist\Flysystem\GoogleStorage\GoogleStorageAdapter;
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since  3.0
  */
-class Volume extends \craft\base\Volume
+class Volume extends FlysystemVolume
 {
     // Static
     // =========================================================================
@@ -142,7 +143,7 @@ class Volume extends \craft\base\Volume
     /**
      * @inheritdoc
      */
-    public function deleteDir(string $path): bool
+    public function deleteDir(string $path)
     {
         $fileList = $this->getFileList($path, true);
 
@@ -158,8 +159,6 @@ class Volume extends \craft\base\Volume
                 continue;
             }
         }
-
-        return true;
     }
 
 
