@@ -8,7 +8,7 @@
 namespace craft\googlecloud;
 
 use Craft;
-use craft\flysystem\FlysystemVolume;
+use craft\base\FlysystemVolume;
 use craft\helpers\Assets;
 use craft\helpers\DateTimeHelper;
 use craft\helpers\Json;
