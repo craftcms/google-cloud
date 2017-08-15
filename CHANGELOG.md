@@ -1,7 +1,10 @@
 Changelog
 =========
 
-## Unreleased
+## 1.0.2 - 2017-08-15
+
+### Changed
+- Craft 3 Beta 24 compatibility.
 
 ### Fixed
 - Fixed a bug where cache duration information was not being saved for Volumes.
