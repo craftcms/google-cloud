@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.0.4 - 2018-01-02
+
+### Added
+- Google Cloud volumes’ Base URL settings are now parsed for [aliases](http://www.yiiframework.com/doc-2.0/guide-concept-aliases.html) (e.g. `@web`).
+
 ## 1.0.3 - 2017-12-04
 
 ### Changed
