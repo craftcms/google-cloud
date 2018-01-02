@@ -27,7 +27,7 @@
     "rss": "https://github.com/craftcms/google-cloud/commits/master.atom"
   },
   "require": {
-    "craftcms/cms": "^3.0.0-beta.24",
+    "craftcms/cms": "^3.0.0-RC4",
     "superbalist/flysystem-google-storage": "5.0.0"
   },
   "autoload": {
