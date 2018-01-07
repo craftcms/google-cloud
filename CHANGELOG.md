@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## Unreleased
+
+### Fixed
+- Fixed a bug where the Field Layout tab wasn’t showing up on volume settings when Google Cloud Storage was installed. ([#1](https://github.com/craftcms/google-cloud/issues/1))
+
 ## 1.0.4 - 2018-01-02
 
 ### Added
