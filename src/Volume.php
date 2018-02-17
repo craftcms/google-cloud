@@ -1,8 +1,8 @@
 <?php
 /**
- * @link      https://craftcms.com/
+ * @link https://craftcms.com/
  * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   MIT
+ * @license MIT
  */
 
 namespace craft\googlecloud;
@@ -21,11 +21,10 @@ use Superbalist\Flysystem\GoogleStorage\GoogleStorageAdapter;
 /**
  * Class Volume
  *
- * @property mixed  $settingsHtml
+ * @property mixed $settingsHtml
  * @property string $rootUrl
- *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @since 3.0
  */
 class Volume extends FlysystemVolume
 {
@@ -103,7 +102,6 @@ class Volume extends FlysystemVolume
      *
      * @param string $projectId
      * @param string $keyFileContents
-     *
      * @return array
      * @throws \InvalidArgumentException
      */
@@ -169,7 +167,6 @@ class Volume extends FlysystemVolume
 
     /**
      * @inheritdoc
-     *
      * @return GoogleStorageAdapter
      */
     protected function createAdapter()
@@ -186,7 +183,6 @@ class Volume extends FlysystemVolume
      * Get the Google Cloud Storage client.
      *
      * @param $config
-     *
      * @return StorageClient
      */
     protected static function client(array $config = []): StorageClient
@@ -235,7 +231,6 @@ class Volume extends FlysystemVolume
      *
      * @param string $projectId
      * @param string $keyFileContents
-     *
      * @return array
      */
     private static function _buildConfigArray(string $projectId, string $keyFileContents)
