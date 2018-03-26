@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## Unreleased
+
+### Fixed
+ - Fixed a bug where folders moved or deleted in Assets would remain in Google Cloud. ([#2](https://github.com/craftcms/google-cloud/issues/2))
+
 ## 1.0.5 - 2018-01-15
 
 ### Fixed
