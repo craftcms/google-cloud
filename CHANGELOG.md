@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## Unreleased
+## 1.1 - 2018-07-27
 
 ### Changed
  - Bumped `superbalist/flysystem-google-storage` version requirement to `^7.0.0`
