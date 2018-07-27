@@ -3,6 +3,9 @@ Changelog
 
 ## Unreleased
 
+### Changed
+ - Bumped `superbalist/flysystem-google-storage` version requirement to `^7.0.0`
+
 ### Fixed
  - Fixed a bug where folders moved or deleted in Assets would remain in Google Cloud. ([#2](https://github.com/craftcms/google-cloud/issues/2))
 
