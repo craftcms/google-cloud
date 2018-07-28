@@ -155,9 +155,16 @@ class Volume extends FlysystemVolume
                     $this->filesystem()->delete($object['path']);
                 }
             } catch (\Throwable $exception) {
-                // Push through the pain.
+                // Even though we just listed this, the folders may or may not exist
+                // Depending on whether the folder was created or a file like "folder/file.ext" was uploaded
                 continue;
             }
+        }
+
+        try {
+            $this->filesystem()->deleteDir($path);
+        } catch (\Throwable $exception) {
+            //Ignore if this was a phantom folder, too.
         }
     }
 
