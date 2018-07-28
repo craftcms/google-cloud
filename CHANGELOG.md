@@ -1,5 +1,4 @@
-Changelog
-=========
+# Release Notes for Google Cloud Storage
 
 ## 1.1 - 2018-07-27
 
