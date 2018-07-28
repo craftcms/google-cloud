@@ -1,4 +1,4 @@
-# Release Notes for Google Cloud Storage
+# Release Notes for Google Cloud Storage for Craft CMS
 
 ## 1.1 - 2018-07-27
 
