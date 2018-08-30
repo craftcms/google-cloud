@@ -258,4 +258,18 @@ class Volume extends FlysystemVolume
 
         return $config;
     }
+    
+    /**
+     * Validates the component.
+     *
+     * @param string[]|null $attributeNames List of attribute names that should
+     * be validated. If this parameter is empty, it means any attribute listed
+     * in the applicable validation rules should be validated.
+     * @param bool $clearErrors Whether existing errors should be cleared before
+     * performing validation
+     * @return bool Whether the validation is successful without any error.
+     */
+    public function validate($attributeNames = null, $clearErrors = true){
+        return true;  // TODO: actually implement some validation
+    }
 }
