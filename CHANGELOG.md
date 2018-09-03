@@ -1,5 +1,4 @@
-Changelog
-=========
+# Release Notes for Google Cloud Storage for Craft CMS
 
 ## Unreleased
 
