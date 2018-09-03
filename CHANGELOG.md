@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## Unreleased
+
+### Fixed
+ - Fixed a bug where error message would not be displayed for the bucket dropdown when configuring a volume. ([#4](https://github.com/craftcms/google-cloud/issues/4))
+
 ## 1.1 - 2018-07-27
 
 ### Changed

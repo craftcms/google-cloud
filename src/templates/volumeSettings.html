@@ -40,7 +40,9 @@
 
 {{ forms.field({
     label: "Bucket"|t('google-cloud'),
-    id: 'bucket'
+    id: 'bucket',
+    required: true,
+    errors: volume.getErrors('bucket'),
 }, bucketInput) }}
 
 {{ forms.textField({
