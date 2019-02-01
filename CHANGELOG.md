@@ -1,6 +1,6 @@
 # Release Notes for Google Cloud Storage for Craft CMS
 
-## Unreleased
+## 1.2.0 - 2019-02-01
 
 ### Fixed
 - Fixed a bug where error message would not be displayed for the bucket dropdown when configuring a volume. ([#4](https://github.com/craftcms/google-cloud/issues/4))
