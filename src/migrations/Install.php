@@ -12,12 +12,13 @@ use craft\db\Migration;
 use craft\db\Query;
 use craft\googlecloud\Volume;
 use craft\helpers\Json;
+use craft\services\Volumes;
 
 /**
  * Installation Migration
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since 3.0
+ * @since 1.0
  */
 class Install extends Migration
 {
@@ -29,7 +30,7 @@ class Install extends Migration
      */
     public function safeUp()
     {
-        // Convert any built-in S3 volumes to ours
+        // Convert any built-in Google Cloud volumes to ours
         $this->_convertVolumes();
 
         return true;
@@ -47,43 +48,35 @@ class Install extends Migration
     // =========================================================================
 
     /**
-     * Converts any old school S3 volumes to this one
+     * Converts any old school Google Cloud volumes to this one
      *
      * @return void
      */
     private function _convertVolumes()
     {
-        $volumes = (new Query())
-            ->select([
-                'id',
-                'fieldLayoutId',
-                'settings',
-            ])
-            ->where(['type' => 'craft\volumes\GoogleCloud'])
-            ->from(['{{%volumes}}'])
-            ->all();
+        $projectConfig = Craft::$app->getProjectConfig();
+        $projectConfig->muteEvents = true;
 
-        $dbConnection = Craft::$app->getDb();
+        $volumes = $projectConfig->get(Volumes::CONFIG_VOLUME_KEY) ?? [];
 
-        foreach ($volumes as $volume) {
+        foreach ($volumes as $uid => &$volume) {
+            if ($volume['type'] === Volume::class && isset($volume['settings']) && is_array($volume['settings'])) {
+                $settings = $volume['settings'];
 
-            $settings = Json::decode($volume['settings']);
-
-            if ($settings !== null) {
-                $hasUrls = !empty($settings['publicURLs']);
+                $hasUrls = !empty($volume['hasUrls']);
                 $url = ($hasUrls && !empty($settings['urlPrefix'])) ? $settings['urlPrefix'] : null;
-                unset($settings['publicURLs'], $settings['urlPrefix'], $settings['keyId'], $settings['secret']);
+                unset($settings['urlPrefix'], $settings['keyId'], $settings['secret']);
 
-                $values = [
-                    'type' => Volume::class,
-                    'hasUrls' => $hasUrls,
-                    'url' => $url,
+
+                $volume['url'] = $url;
+                $volume['settings'] = $settings;
+
+                $this->update('{{%volumes}}', [
                     'settings' => Json::encode($settings),
-                ];
+                    'url' => $url,
+                ], ['uid' => $uid]);
 
-                $dbConnection->createCommand()
-                    ->update('{{%volumes}}', $values, ['id' => $volume['id']])
-                    ->execute();
+                $projectConfig->set(Volumes::CONFIG_VOLUME_KEY . '.' . $uid, $volume);
             }
         }
     }
