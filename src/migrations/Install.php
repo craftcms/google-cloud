@@ -79,5 +79,7 @@ class Install extends Migration
                 $projectConfig->set(Volumes::CONFIG_VOLUME_KEY . '.' . $uid, $volume);
             }
         }
+
+        $projectConfig->muteEvents = false;
     }
 }
