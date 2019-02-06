@@ -1,6 +1,6 @@
 # Release Notes for Google Cloud Storage for Craft CMS
 
-## Unreleased
+## 1.2.1 - 2019-02-06
 
 ### Fixed
 - Fixed a bug where installing this plugin via `project.yaml` would result in other changes being applied partially.
