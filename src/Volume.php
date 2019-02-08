@@ -134,8 +134,8 @@ class Volume extends FlysystemVolume
      */
     public function getRootUrl()
     {
-        if (($rootUrl = parent::getRootUrl()) !== false && $this->subfolder) {
-            $rootUrl .= rtrim($this->subfolder, '/').'/';
+        if (($rootUrl = parent::getRootUrl()) !== false) {
+            $rootUrl .= $this->_subfolder();
         }
         return $rootUrl;
     }
@@ -183,7 +183,7 @@ class Volume extends FlysystemVolume
         $client = static::client($config);
         $bucket = $client->bucket($this->bucket);
 
-        return new GoogleStorageAdapter($client, $bucket, $this->subfolder);
+        return new GoogleStorageAdapter($client, $bucket, $this->_subfolder() ?: null);
     }
 
     /**
@@ -221,13 +221,26 @@ class Volume extends FlysystemVolume
     // =========================================================================
 
     /**
+     * Returns the parsed subfolder path
+     * @return string
+     */
+    private function _subfolder(): string
+    {
+        if ($this->subfolder && ($subfolder = rtrim(Craft::parseEnv($this->subfolder), '/')) !== '') {
+            return $subfolder . '/';
+        }
+        return '';
+
+    }
+
+    /**
      * Get the config array for Google Cloud Storage clients.
      *
      * @return array
      */
     private function _getConfigArray()
     {
-        $projectId = $this->projectId;
+        $projectId = Craft::parseEnv($this->projectId);
         $keyFileContents = $this->keyFileContents;
 
         return static::_buildConfigArray($projectId, $keyFileContents);

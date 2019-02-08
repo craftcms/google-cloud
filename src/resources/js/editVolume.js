@@ -1,3 +1,5 @@
+$(document).ready(function() {
+
 var $googleProjectId = $('.google-project-id'),
 	$googleKeyFileContents = $('.google-key-file-contents'),
 	$googleBucketSelect = $('.google-bucket-select > select'),
@@ -92,3 +94,5 @@ var googleChangeExpiryValue = function ()
 
 $('.google-expires-amount').keyup(googleChangeExpiryValue).change(googleChangeExpiryValue);
 $('.google-expires-period select').change(googleChangeExpiryValue);
+
+});

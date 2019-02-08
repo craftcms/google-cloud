@@ -1,9 +1,10 @@
 {% import "_includes/forms" as forms %}
 
-{{ forms.textField({
+{{ forms.autosuggestField({
     label: "Project ID"|t('google-cloud'),
     id: 'projectId',
     name: 'projectId',
+    suggestEnvVars: true,
     value: volume.projectId,
     errors: volume.getErrors('projectId'),
     class: 'google-project-id',
@@ -47,12 +48,13 @@
     errors: volume.getErrors('bucket'),
 }, bucketInput) }}
 
-{{ forms.textField({
+{{ forms.autosuggestField({
     label: "Subfolder"|t('google-cloud'),
     instructions: "If you want to use a bucket’s subfolder as a Volume, specify the path to use here."|t('google-cloud'),
     id: 'subfolder',
     class: 'ltr',
     name: 'subfolder',
+    suggestEnvVars: true,
     value: volume.subfolder,
     errors: volume.getErrors('subfolder'),
     required: false,

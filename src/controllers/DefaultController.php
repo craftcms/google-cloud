@@ -35,7 +35,7 @@ class DefaultController extends BaseController
         $this->requireAcceptsJson();
 
         $request = Craft::$app->getRequest();
-        $projectId = $request->getRequiredBodyParam('projectId');
+        $projectId = Craft::parseEnv($request->getRequiredBodyParam('projectId'));
         $keyFileContents = $request->getRequiredBodyParam('keyFileContents');
 
         try {
