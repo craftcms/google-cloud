@@ -18,7 +18,9 @@
     value: volume.keyFileContents,
     errors: volume.getErrors('keyFileContents'),
     class: 'google-key-file-contents',
-    instructions: 'You can leave this field empty if you are using <a href=\"{link}\" title=\"Application default credentials\" target=\"_blank\">Application default credentials</a>.'|t('google-cloud', {'link': 'https://github.com/google/google-auth-library-php#application-default-credentials'}),
+    instructions: 'You can leave this blank if you set <a href="{link}">application default credentials</a>.'|t('google-cloud', {
+        link: 'https://github.com/googleapis/google-auth-library-php#application-default-credentials'
+    }),
     rows: 8,
     cols: 50
 }) }}
