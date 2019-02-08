@@ -1,12 +1,23 @@
 # Release Notes for Google Cloud Storage for Craft CMS
 
+## 1.2.1 - 2019-02-06
+
+### Fixed
+- Fixed a bug where installing this plugin via `project.yaml` would result in other changes being applied partially.
+
+## 1.2.0 - 2019-02-01
+
+### Fixed
+- Fixed a bug where error message would not be displayed for the bucket dropdown when configuring a volume. ([#4](https://github.com/craftcms/google-cloud/issues/4))
+- Fixed an error that occurred when updating from Craft 2 to Craft 3.1 when using this plugin.
+
 ## 1.1 - 2018-07-27
 
 ### Changed
- - Bumped `superbalist/flysystem-google-storage` version requirement to `^7.0.0`
+- Bumped `superbalist/flysystem-google-storage` version requirement to `^7.0.0`
 
 ### Fixed
- - Fixed a bug where folders moved or deleted in Assets would remain in Google Cloud. ([#2](https://github.com/craftcms/google-cloud/issues/2))
+- Fixed a bug where folders moved or deleted in Assets would remain in Google Cloud. ([#2](https://github.com/craftcms/google-cloud/issues/2))
 
 ## 1.0.5 - 2018-01-15
 
