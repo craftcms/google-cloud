@@ -6,7 +6,7 @@ This plugin provides a [Google Cloud Storage](https://cloud.google.com/storage/)
 
 ## Requirements
 
-This plugin requires Craft CMS 3.1 or later.
+This plugin requires Craft CMS 3.1.5 or later.
 
 ## Installation
 
@@ -34,3 +34,5 @@ composer require craftcms/google-cloud
 ## Setup
 
 To create a new asset volume for your Google Cloud Storage bucket, go to Settings → Assets, create a new volume, and set the Volume Type setting to “Google Cloud Storage”.
+
+> **Tip:** The Project ID and Subfolder settings can be set to environment variables. See [Environmental Configuration](https://docs.craftcms.com/v3/config/environments.html) in the Craft docs to learn more about that.

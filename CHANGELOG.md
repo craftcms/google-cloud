@@ -1,6 +1,6 @@
 # Release Notes for Google Cloud Storage for Craft CMS
 
-## Unreleased
+## 1.3.0 - 2019-02-08
 
 ### Added
 - The Project ID and Subfolder settings can now be set to environment variables. ([#7](https://github.com/craftcms/aws-s3/issues/7))
