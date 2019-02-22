@@ -9,6 +9,7 @@ namespace craft\googlecloud;
 
 use Craft;
 use craft\base\FlysystemVolume;
+use craft\behaviors\EnvAttributeParserBehavior;
 use craft\helpers\Assets;
 use craft\helpers\DateTimeHelper;
 use craft\helpers\Json;
@@ -74,6 +75,22 @@ class Volume extends FlysystemVolume
 
     // Public Methods
     // =========================================================================
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        $behaviors['parser'] = [
+            'class' => EnvAttributeParserBehavior::class,
+            'attributes' => [
+                'subfolder',
+                'projectId',
+            ],
+        ];
+        return $behaviors;
+    }
 
     /**
      * @inheritdoc
