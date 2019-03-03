@@ -23,7 +23,7 @@
     "email": "support@craftcms.com",
     "issues": "https://github.com/craftcms/google-cloud/issues?state=open",
     "source": "https://github.com/craftcms/google-cloud",
-    "docs": "https://github.com/craftcms/google-cloud",
+    "docs": "https://github.com/craftcms/google-cloud/blob/master/README.md",
     "rss": "https://github.com/craftcms/google-cloud/commits/master.atom"
   },
   "require": {
@@ -38,7 +38,6 @@
   "extra": {
     "name": "Google Cloud Storage",
     "handle": "google-cloud",
-    "changelogUrl": "https://raw.githubusercontent.com/craftcms/google-cloud/master/CHANGELOG.md",
-    "downloadUrl": "https://github.com/craftcms/google-cloud/archive/master.zip"
+    "documentationUrl": "https://github.com/craftcms/google-cloud/blob/master/README.md"
   }
 }
