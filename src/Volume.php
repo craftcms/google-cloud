@@ -10,6 +10,7 @@ namespace craft\googlecloud;
 use Craft;
 use craft\base\FlysystemVolume;
 use craft\behaviors\EnvAttributeParserBehavior;
+use craft\helpers\ArrayHelper;
 use craft\helpers\Assets;
 use craft\helpers\DateTimeHelper;
 use craft\helpers\Json;
@@ -73,8 +74,28 @@ class Volume extends FlysystemVolume
      */
     public $expires = '';
 
+    /**
+     * @var string Bucket selection mode ('choose' or 'manual')
+     */
+    public $bucketSelectionMode = 'choose';
+
     // Public Methods
     // =========================================================================
+
+    /**
+     * @inheritdoc
+     */
+    public function __construct(array $config = [])
+    {
+        if (isset($config['manualBucket'])) {
+            if (isset($config['bucketSelectionMode']) && $config['bucketSelectionMode'] === 'manual') {
+                $config['bucket'] = ArrayHelper::remove($config, 'manualBucket');
+            } else {
+                unset($config['manualBucket']);
+            }
+        }
+        parent::__construct($config);
+    }
 
     /**
      * @inheritdoc
@@ -87,6 +108,7 @@ class Volume extends FlysystemVolume
             'attributes' => [
                 'subfolder',
                 'projectId',
+                'bucket',
             ],
         ];
         return $behaviors;
@@ -198,7 +220,7 @@ class Volume extends FlysystemVolume
         $config = $this->_getConfigArray();
 
         $client = static::client($config);
-        $bucket = $client->bucket($this->bucket);
+        $bucket = $client->bucket(Craft::parseEnv($this->bucket));
 
         return new GoogleStorageAdapter($client, $bucket, $this->_subfolder() ?: null);
     }

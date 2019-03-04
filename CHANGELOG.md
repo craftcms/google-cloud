@@ -1,5 +1,10 @@
 # Release Notes for Google Cloud Storage for Craft CMS
 
+## Unreleased
+
+### Added
+- The bucket setting can now be set to an environment variable. ([#7](https://github.com/craftcms/google-cloud/issues/7))
+
 ## 1.3.0 - 2019-02-08
 
 ### Added
