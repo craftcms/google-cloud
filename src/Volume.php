@@ -211,7 +211,7 @@ class Volume extends FlysystemVolume
             if (!isset($config['metadata'])) {
                 $config['metadata'] = [];
             }
-            $config['metadata']['cacheControl'] = 'max-age='.$diff.', must-revalidate';
+            $config['metadata']['cacheControl'] = 'public,max-age='.$diff.', must-revalidate';
         }
 
         return parent::addFileMetadataToConfig($config);
