@@ -5,6 +5,9 @@
 ### Added
 - The bucket setting can now be set to an environment variable. ([#7](https://github.com/craftcms/google-cloud/issues/7))
 
+### Fixed
+- Fixed a bug where the CacheControl header was set to a value that prevented caching. ([#11](https://github.com/craftcms/google-cloud/issues/11)) 
+
 ## 1.3.0 - 2019-02-08
 
 ### Added
