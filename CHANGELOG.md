@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-### Added
+### Added
 - The bucket setting can now be set to an environment variable. ([#7](https://github.com/craftcms/google-cloud/issues/7))
 
 ### Fixed
