@@ -7,7 +7,8 @@
 - The contents of the access key file can now be set to an environment variable. ([#12](https://github.com/craftcms/google-cloud/issues/12))
 
 ### Fixed
-- Fixed a bug where the CacheControl header was set to a value that prevented caching. ([#11](https://github.com/craftcms/google-cloud/issues/11)) 
+- Fixed a bug where the CacheControl header was set to a value that prevented caching. ([#11](https://github.com/craftcms/google-cloud/issues/11))
+- Fixed an error where file deletion would fail silently if prevented by bucket retention policy. ([#13](https://github.com/craftcms/google-cloud/issues/13))
 
 ## 1.3.0 - 2019-02-08
 

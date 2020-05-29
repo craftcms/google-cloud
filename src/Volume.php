@@ -10,6 +10,7 @@ namespace craft\googlecloud;
 use Craft;
 use craft\base\FlysystemVolume;
 use craft\behaviors\EnvAttributeParserBehavior;
+use craft\errors\VolumeException;
 use craft\helpers\ArrayHelper;
 use craft\helpers\Assets;
 use craft\helpers\DateTimeHelper;
@@ -207,6 +208,18 @@ class Volume extends FlysystemVolume
         }
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function deleteFile(string $path)
+    {
+        try {
+            parent::deleteFile($path);
+        } catch (\Throwable $exception) {
+            Craft::$app->getErrorHandler()->logException($exception);
+            throw new VolumeException(Craft::t('google-cloud', 'Could not delete file due to bucket’s retention policy'), 0, $exception);
+        }
+    }
 
     // Protected Methods
     // =========================================================================
