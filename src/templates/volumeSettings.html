@@ -12,64 +12,34 @@
     required: true
 }) }}
 
-{{ forms.textareaField({
+{{ forms.autosuggestField({
     label: "Contents of the access key file"|t('google-cloud'),
     id: 'keyFileContents',
     name: 'keyFileContents',
     value: volume.keyFileContents,
     errors: volume.getErrors('keyFileContents'),
     class: 'google-key-file-contents',
-    instructions: 'You can leave this blank if you set <a href="{link}">application default credentials</a>.'|t('google-cloud', {
+    instructions: 'If you are using an environment variable, make sure the "\\n" characters in the RSA key are properly escaped. You can leave this blank if you set <a href="{link}">application default credentials</a>.'|t('google-cloud', {
         link: 'https://github.com/googleapis/google-auth-library-php#application-default-credentials'
     }),
+    suggestEnvVars: true,
     rows: 8,
     cols: 50
 }) }}
 
 {% set bucketInput %}
-    <div class="flex fullwidth">
+    <div class="flex">
         {{ forms.select({
-            name: 'bucketSelectionMode',
-            options: [
-                { label: 'Choose…'|t('google-cloud'), value: 'choose' },
-                { label: 'Manual…'|t('google-cloud'), value: 'manual' }
-            ],
-            value: volume.bucketSelectionMode,
-            toggle: true,
-            targetPrefix: '.bsm-'
+            id: 'bucket',
+            name: 'bucket',
+            options: { (volume.bucket): volume.bucket },
+            value: volume.bucket,
+            readonly: true,
+            class: 'google-bucket-select'
         }) }}
-
-        <div class="bsm-choose{% if volume.bucketSelectionMode == 'manual' %} hidden{% endif %}">
-            {{ forms.select({
-                id: 'bucket',
-                name: 'bucket',
-                options: { (volume.bucket): volume.bucket },
-                value: volume.bucketSelectionMode == 'manual' ? volume.bucket,
-                readonly: true,
-                class: 'google-bucket-select'
-            }) }}
-        </div>
-
-        <div class="bsm-choose{% if volume.bucketSelectionMode == 'manual' %} hidden{% endif %}">
-            <div class="btn google-refresh-buckets">{{ "Refresh"|t('google-cloud') }}</div>
-        </div>
-
-        <div class="bsm-choose{% if volume.bucketSelectionMode == 'manual' %} hidden{% endif %}">
-            <div class="spinner hidden"></div>
-        </div>
-
-        <div class="bsm-manual{% if volume.bucketSelectionMode == 'choose' %} hidden{% endif %} flex-grow">
-            {{ forms.autosuggest({
-                label: "Bucket"|t('google-cloud'),
-                class: 'ltr',
-                name: 'manualBucket',
-                suggestEnvVars: true,
-                value: volume.bucket,
-                placeholder: 'Bucket'|t('google-cloud')
-            }) }}
-        </div>
+        <div class="btn google-refresh-buckets">{{ "Refresh"|t('google-cloud') }}</div>
+        <div class="spinner hidden"></div>
     </div>
-    <div class="spinner hidden"></div>
 {% endset %}
 
 {{ forms.field({

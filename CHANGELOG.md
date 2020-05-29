@@ -4,6 +4,7 @@
 
 ### Added
 - The bucket setting can now be set to an environment variable. ([#7](https://github.com/craftcms/google-cloud/issues/7))
+- The contents of the access key file can now be set to an environment variable. ([#12](https://github.com/craftcms/google-cloud/issues/12))
 
 ### Fixed
 - Fixed a bug where the CacheControl header was set to a value that prevented caching. ([#11](https://github.com/craftcms/google-cloud/issues/11)) 

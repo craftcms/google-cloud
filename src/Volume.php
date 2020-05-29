@@ -280,7 +280,7 @@ class Volume extends FlysystemVolume
     private function _getConfigArray()
     {
         $projectId = Craft::parseEnv($this->projectId);
-        $keyFileContents = $this->keyFileContents;
+        $keyFileContents = Craft::parseEnv($this->keyFileContents);
 
         return static::_buildConfigArray($projectId, $keyFileContents);
     }
