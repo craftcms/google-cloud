@@ -28,7 +28,7 @@ cd /path/to/my-project.test
 composer require craftcms/google-cloud
 
 # tell Craft to install the plugin
-./craft install/plugin google-cloud
+./craft plugin/install google-cloud
 ```
 
 ## Setup
