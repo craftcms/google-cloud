@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @link https://craftcms.com/
  * @copyright Copyright (c) Pixel & Tonic, Inc.
@@ -8,18 +9,21 @@
 namespace craft\googlecloud;
 
 use Craft;
-use craft\base\FlysystemVolume;
 use craft\behaviors\EnvAttributeParserBehavior;
 use craft\errors\VolumeException;
+use craft\flysystem\base\FlysystemVolume;
 use craft\helpers\ArrayHelper;
 use craft\helpers\Assets;
 use craft\helpers\DateTimeHelper;
 use craft\helpers\Json;
 use DateTime;
+use Generator;
 use Google\Auth\HttpHandler\Guzzle6HttpHandler;
 use Google\Cloud\Storage\Bucket;
 use Google\Cloud\Storage\StorageClient;
-use Superbalist\Flysystem\GoogleStorage\GoogleStorageAdapter;
+use League\Flysystem\FilesystemAdapter;
+use League\Flysystem\GoogleCloudStorage\GoogleCloudStorageAdapter;
+use League\Flysystem\GoogleCloudStorage\PortableVisibilityHandler;
 
 /**
  * Class Volume
@@ -27,7 +31,7 @@ use Superbalist\Flysystem\GoogleStorage\GoogleStorageAdapter;
  * @property mixed $settingsHtml
  * @property string $rootUrl
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since 3.0
+ * @since 1.0
  */
 class Volume extends FlysystemVolume
 {
@@ -48,37 +52,37 @@ class Volume extends FlysystemVolume
     /**
      * @var bool Whether this is a local source or not. Defaults to false.
      */
-    protected $isVolumeLocal = false;
+    protected bool $isVolumeLocal = false;
 
     /**
      * @var string Subfolder to use
      */
-    public $subfolder = '';
+    public string $subfolder = '';
 
     /**
      * @var string Google Cloud project id.
      */
-    public $projectId = '';
+    public string $projectId = '';
 
     /**
      * @var string Contents of the connection key file
      */
-    public $keyFileContents = '';
+    public string $keyFileContents = '';
 
     /**
      * @var string Bucket to use
      */
-    public $bucket = '';
+    public string $bucket = '';
 
     /**
      * @var string Cache expiration period.
      */
-    public $expires = '';
+    public string $expires = '';
 
     /**
      * @var string Bucket selection mode ('choose' or 'manual')
      */
-    public $bucketSelectionMode = 'choose';
+    public string $bucketSelectionMode = 'choose';
 
     // Public Methods
     // =========================================================================
@@ -101,7 +105,7 @@ class Volume extends FlysystemVolume
     /**
      * @inheritdoc
      */
-    public function behaviors()
+    public function behaviors(): array
     {
         $behaviors = parent::behaviors();
         $behaviors['parser'] = [
@@ -118,7 +122,7 @@ class Volume extends FlysystemVolume
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         $rules = parent::rules();
         $rules[] = [['bucket', 'projectId'], 'required'];
@@ -129,7 +133,7 @@ class Volume extends FlysystemVolume
     /**
      * @inheritdoc
      */
-    public function getSettingsHtml()
+    public function getSettingsHtml(): ?string
     {
         return Craft::$app->getView()->renderTemplate('google-cloud/volumeSettings', [
             'volume' => $this,
@@ -145,7 +149,7 @@ class Volume extends FlysystemVolume
      * @return array
      * @throws \InvalidArgumentException
      */
-    public static function loadBucketList(string $projectId, string $keyFileContents)
+    public static function loadBucketList(string $projectId, string $keyFileContents): array
     {
         // Any region will do.
         $config = static::_buildConfigArray($projectId, $keyFileContents);
@@ -162,7 +166,7 @@ class Volume extends FlysystemVolume
         foreach ($buckets as $bucket) {
             $bucketList[] = [
                 'bucket' => $bucket->name(),
-                'urlPrefix' => 'http://storage.googleapis.com/'.$bucket->name().'/',
+                'urlPrefix' => 'http://storage.googleapis.com/' . $bucket->name() . '/',
             ];
         }
 
@@ -183,7 +187,7 @@ class Volume extends FlysystemVolume
     /**
      * @inheritdoc
      */
-    public function deleteDir(string $path)
+    public function deleteDirectory(string $path): void
     {
         $fileList = $this->getFileList($path, true);
 
@@ -211,7 +215,7 @@ class Volume extends FlysystemVolume
     /**
      * @inheritDoc
      */
-    public function deleteFile(string $path)
+    public function deleteFile(string $path): void
     {
         try {
             parent::deleteFile($path);
@@ -226,16 +230,16 @@ class Volume extends FlysystemVolume
 
     /**
      * @inheritdoc
-     * @return GoogleStorageAdapter
+     * @return GoogleCloudStorageAdapter
      */
-    protected function createAdapter()
+    protected function createAdapter(): FilesystemAdapter
     {
         $config = $this->_getConfigArray();
 
         $client = static::client($config);
         $bucket = $client->bucket(Craft::parseEnv($this->bucket));
 
-        return new GoogleStorageAdapter($client, $bucket, $this->_subfolder() ?: null);
+        return new GoogleCloudStorageAdapter($bucket, $this->_subfolder(), new PortableVisibilityHandler('allUsers'));
     }
 
     /**
@@ -257,13 +261,13 @@ class Volume extends FlysystemVolume
         if (!empty($this->expires) && DateTimeHelper::isValidIntervalString($this->expires)) {
             $expires = new DateTime();
             $now = new DateTime();
-            $expires->modify('+'.$this->expires);
+            $expires->modify('+' . $this->expires);
             $diff = $expires->format('U') - $now->format('U');
 
             if (!isset($config['metadata'])) {
                 $config['metadata'] = [];
             }
-            $config['metadata']['cacheControl'] = 'public,max-age='.$diff.', must-revalidate';
+            $config['metadata']['cacheControl'] = 'public,max-age=' . $diff . ', must-revalidate';
         }
 
         return parent::addFileMetadataToConfig($config);
@@ -274,6 +278,7 @@ class Volume extends FlysystemVolume
 
     /**
      * Returns the parsed subfolder path
+     *
      * @return string
      */
     private function _subfolder(): string
@@ -282,7 +287,6 @@ class Volume extends FlysystemVolume
             return $subfolder . '/';
         }
         return '';
-
     }
 
     /**
@@ -290,7 +294,7 @@ class Volume extends FlysystemVolume
      *
      * @return array
      */
-    private function _getConfigArray()
+    private function _getConfigArray(): array
     {
         $projectId = Craft::parseEnv($this->projectId);
         $keyFileContents = Craft::parseEnv($this->keyFileContents);
@@ -305,7 +309,7 @@ class Volume extends FlysystemVolume
      * @param string $keyFileContents
      * @return array
      */
-    private static function _buildConfigArray(string $projectId, string $keyFileContents)
+    private static function _buildConfigArray(string $projectId, string $keyFileContents): array
     {
         $config = [
             'projectId' => $projectId,

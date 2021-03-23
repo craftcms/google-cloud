@@ -1,7 +1,7 @@
 {
   "name": "craftcms/google-cloud",
   "description": "Google Cloud Storage integration for Craft CMS",
-  "version": "1.4.0",
+  "version": "2.0.0-alpha.1",
   "type": "craft-plugin",
   "keywords": [
     "cms",
@@ -27,8 +27,8 @@
     "rss": "https://github.com/craftcms/google-cloud/commits/master.atom"
   },
   "require": {
-    "craftcms/cms": "^3.1.5",
-    "superbalist/flysystem-google-storage": "^7.0.0"
+    "craftcms/craft-flysystem": "^1.0.0-alpha.1",
+    "league/flysystem-google-cloud-storage": "^2.0.0"
   },
   "autoload": {
     "psr-4": {
