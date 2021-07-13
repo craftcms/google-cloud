@@ -1,5 +1,8 @@
 # Release Notes for Google Cloud Storage for Craft CMS
 
+## Unreleased
+- Allow manual bucket selection. ([#21]((https://github.com/craftcms/google-cloud/issues/21), [#24]((https://github.com/craftcms/google-cloud/issues/24))
+
 ## 1.4.0 - 2020-06-01
 
 ### Added
