@@ -15,16 +15,10 @@ use yii\base\Event;
  */
 class Plugin extends \craft\base\Plugin
 {
-    // Properties
-    // =========================================================================
-
     /**
      * @inheritdoc
      */
     public $schemaVersion = '1.1';
-
-    // Public Methods
-    // =========================================================================
 
     /**
      * @inheritdoc
@@ -33,8 +27,12 @@ class Plugin extends \craft\base\Plugin
     {
         parent::init();
 
-        Event::on(Volumes::class, Volumes::EVENT_REGISTER_VOLUME_TYPES, function(RegisterComponentTypesEvent $event) {
-            $event->types[] = Volume::class;
-        });
+        Event::on(
+            Volumes::class,
+            Volumes::EVENT_REGISTER_VOLUME_TYPES,
+            function(RegisterComponentTypesEvent $event) {
+                $event->types[] = Volume::class;
+            }
+        );
     }
 }

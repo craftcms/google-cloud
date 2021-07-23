@@ -21,9 +21,6 @@ use craft\services\Volumes;
  */
 class m200529_110000_cleanup_expires_config extends Migration
 {
-    // Public Methods
-    // =========================================================================
-
     /**
      * @inheritdoc
      */

@@ -22,9 +22,6 @@ use craft\services\Volumes;
  */
 class Install extends Migration
 {
-    // Public Methods
-    // =========================================================================
-
     /**
      * @inheritdoc
      */
@@ -43,9 +40,6 @@ class Install extends Migration
     {
         return true;
     }
-
-    // Private Methods
-    // =========================================================================
 
     /**
      * Converts any old school Google Cloud volumes to this one

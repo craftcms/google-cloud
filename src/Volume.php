@@ -31,9 +31,6 @@ use Superbalist\Flysystem\GoogleStorage\GoogleStorageAdapter;
  */
 class Volume extends FlysystemVolume
 {
-    // Static
-    // =========================================================================
-
     /**
      * @inheritdoc
      */
@@ -41,9 +38,6 @@ class Volume extends FlysystemVolume
     {
         return 'Google Cloud Storage';
     }
-
-    // Properties
-    // =========================================================================
 
     /**
      * @var bool Whether this is a local source or not. Defaults to false.
@@ -79,9 +73,6 @@ class Volume extends FlysystemVolume
      * @var string Bucket selection mode ('choose' or 'manual')
      */
     public $bucketSelectionMode = 'choose';
-
-    // Public Methods
-    // =========================================================================
 
     /**
      * @inheritdoc
@@ -221,9 +212,6 @@ class Volume extends FlysystemVolume
         }
     }
 
-    // Protected Methods
-    // =========================================================================
-
     /**
      * @inheritdoc
      * @return GoogleStorageAdapter
@@ -268,9 +256,6 @@ class Volume extends FlysystemVolume
 
         return parent::addFileMetadataToConfig($config);
     }
-
-    // Private Methods
-    // =========================================================================
 
     /**
      * Returns the parsed subfolder path
