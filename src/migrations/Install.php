@@ -70,6 +70,9 @@ class Install extends Migration
                 $url = ($hasUrls && !empty($settings['urlPrefix'])) ? $settings['urlPrefix'] : null;
                 unset($settings['urlPrefix'], $settings['keyId'], $settings['secret']);
 
+                if (array_key_exists('expires', $settings) && preg_match('/^([\d]+)([a-z]+)$/', $settings['expires'], $matches)) {
+                    $settings['expires'] = $matches[1] . ' ' . $matches[2];
+                }
 
                 $volume['url'] = $url;
                 $volume['settings'] = $settings;
