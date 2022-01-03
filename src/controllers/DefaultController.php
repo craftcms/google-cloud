@@ -3,7 +3,7 @@
 namespace craft\googlecloud\controllers;
 
 use Craft;
-use craft\googlecloud\Volume;
+use craft\googlecloud\Fs;
 use craft\web\Controller as BaseController;
 use yii\web\Response;
 
@@ -39,7 +39,7 @@ class DefaultController extends BaseController
         $keyFileContents = Craft::parseEnv($request->getRequiredBodyParam('keyFileContents'));
 
         try {
-            return $this->asJson(Volume::loadBucketList($projectId, $keyFileContents));
+            return $this->asJson(Fs::loadBucketList($projectId, $keyFileContents));
         } catch (\Throwable $e) {
             return $this->asErrorJson($e->getMessage());
         }

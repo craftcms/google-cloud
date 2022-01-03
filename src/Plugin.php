@@ -3,6 +3,7 @@
 namespace craft\googlecloud;
 
 use craft\events\RegisterComponentTypesEvent;
+use craft\services\Filesystems;
 use craft\services\Volumes;
 use yii\base\Event;
 
@@ -21,7 +22,7 @@ class Plugin extends \craft\base\Plugin
     /**
      * @inheritdoc
      */
-    public $schemaVersion = '1.1';
+    public string $schemaVersion = '2.0';
 
     // Public Methods
     // =========================================================================
@@ -33,8 +34,8 @@ class Plugin extends \craft\base\Plugin
     {
         parent::init();
 
-        Event::on(Volumes::class, Volumes::EVENT_REGISTER_VOLUME_TYPES, function(RegisterComponentTypesEvent $event) {
-            $event->types[] = Volume::class;
+        Event::on(Filesystems::class, Filesystems::EVENT_REGISTER_FILESYSTEM_TYPES, function(RegisterComponentTypesEvent $event) {
+            $event->types[] = Fs::class;
         });
     }
 }

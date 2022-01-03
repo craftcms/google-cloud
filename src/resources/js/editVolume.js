@@ -77,7 +77,7 @@ $googleBucketSelect.change(function()
 
 	var $selectedOption = $googleBucketSelect.children('option:selected');
 
-	$('.volume-url').val($selectedOption.data('url-prefix'));
+	$('.fs-url').val($selectedOption.data('url-prefix'));
 });
 
 

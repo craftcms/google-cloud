@@ -10,14 +10,13 @@ namespace craft\googlecloud;
 
 use Craft;
 use craft\behaviors\EnvAttributeParserBehavior;
-use craft\errors\VolumeException;
-use craft\flysystem\base\FlysystemVolume;
+use craft\errors\FsException;
+use craft\flysystem\base\FlysystemFs;
 use craft\helpers\ArrayHelper;
 use craft\helpers\Assets;
 use craft\helpers\DateTimeHelper;
 use craft\helpers\Json;
 use DateTime;
-use Generator;
 use Google\Auth\HttpHandler\Guzzle6HttpHandler;
 use Google\Cloud\Storage\Bucket;
 use Google\Cloud\Storage\StorageClient;
@@ -26,14 +25,14 @@ use League\Flysystem\GoogleCloudStorage\GoogleCloudStorageAdapter;
 use League\Flysystem\GoogleCloudStorage\PortableVisibilityHandler;
 
 /**
- * Class Volume
+ * Class Fs
  *
  * @property mixed $settingsHtml
  * @property string $rootUrl
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 1.0
  */
-class Volume extends FlysystemVolume
+class Fs extends FlysystemFs
 {
     // Static
     // =========================================================================
@@ -48,11 +47,6 @@ class Volume extends FlysystemVolume
 
     // Properties
     // =========================================================================
-
-    /**
-     * @var bool Whether this is a local source or not. Defaults to false.
-     */
-    protected bool $isVolumeLocal = false;
 
     /**
      * @var string Subfolder to use
@@ -135,8 +129,8 @@ class Volume extends FlysystemVolume
      */
     public function getSettingsHtml(): ?string
     {
-        return Craft::$app->getView()->renderTemplate('google-cloud/volumeSettings', [
-            'volume' => $this,
+        return Craft::$app->getView()->renderTemplate('google-cloud/fsSettings', [
+            'fs' => $this,
             'periods' => array_merge(['' => ''], Assets::periodList()),
         ]);
     }
@@ -176,11 +170,14 @@ class Volume extends FlysystemVolume
     /**
      * @inheritdoc
      */
-    public function getRootUrl()
+    public function getRootUrl(): ?string
     {
-        if (($rootUrl = parent::getRootUrl()) !== false) {
+        $rootUrl = parent::getRootUrl();
+
+        if ($rootUrl) {
             $rootUrl .= $this->_subfolder();
         }
+
         return $rootUrl;
     }
 
@@ -194,7 +191,7 @@ class Volume extends FlysystemVolume
         foreach ($fileList as $object) {
             try {
                 if ($object['type'] === 'dir') {
-                    $this->filesystem()->deleteDir($object['path']);
+                    $this->filesystem()->deleteDirectory($object['path']);
                 } else {
                     $this->filesystem()->delete($object['path']);
                 }
@@ -206,7 +203,7 @@ class Volume extends FlysystemVolume
         }
 
         try {
-            $this->filesystem()->deleteDir($path);
+            $this->filesystem()->deleteDirectory($path);
         } catch (\Throwable $exception) {
             //Ignore if this was a phantom folder, too.
         }
@@ -221,7 +218,7 @@ class Volume extends FlysystemVolume
             parent::deleteFile($path);
         } catch (\Throwable $exception) {
             Craft::$app->getErrorHandler()->logException($exception);
-            throw new VolumeException(Craft::t('google-cloud', 'Could not delete file due to bucket’s retention policy'), 0, $exception);
+            throw new FsException(Craft::t('google-cloud', 'Could not delete file due to bucket’s retention policy'), 0, $exception);
         }
     }
 
@@ -245,7 +242,7 @@ class Volume extends FlysystemVolume
     /**
      * Get the Google Cloud Storage client.
      *
-     * @param $config
+     * @param array $config
      * @return StorageClient
      */
     protected static function client(array $config = []): StorageClient

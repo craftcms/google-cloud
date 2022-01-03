@@ -9,8 +9,11 @@ namespace craft\googlecloud\migrations;
 
 use Craft;
 use craft\db\Migration;
+use craft\db\Table;
+use craft\googlecloud\Fs;
 use craft\googlecloud\Volume;
 use craft\helpers\Json;
+use craft\services\ProjectConfig;
 use craft\services\Volumes;
 
 /**
@@ -35,20 +38,20 @@ class m200529_110000_cleanup_expires_config extends Migration
         $schemaVersion = $projectConfig->get('plugins.google-cloud.schemaVersion', true);
         $projectConfig->muteEvents = true;
 
-        $volumes = $projectConfig->get(Volumes::CONFIG_VOLUME_KEY, true) ?? [];
+        $volumes = $projectConfig->get(ProjectConfig::PATH_FILESYSTEMS, true) ?? [];
 
         foreach ($volumes as $uid => &$volume) {
-            if ($volume['type'] === Volume::class && !empty($volume['settings']) && is_array($volume['settings']) && array_key_exists('expires', $volume['settings'])) {
+            if ($volume['type'] === Fs::class && !empty($volume['settings']) && is_array($volume['settings']) && array_key_exists('expires', $volume['settings'])) {
                 if (preg_match('/^([\d]+)([a-z]+)$/', $volume['settings']['expires'], $matches)) {
                     $volume['settings']['expires'] = $matches[1] . ' ' . $matches[2];
 
-                    $this->update('{{%volumes}}', [
+                    $this->update(Table::FILESYSTEMS, [
                         'settings' => Json::encode($volume['settings'])
                     ], ['uid' => $uid]);
 
                     // If project config schema up to date, don't update project config
                     if (!version_compare($schemaVersion, '1.1', '>=')) {
-                        $projectConfig->set(Volumes::CONFIG_VOLUME_KEY . '.' . $uid, $volume);
+                        $projectConfig->set(ProjectConfig::PATH_FILESYSTEMS . '.' . $uid, $volume);
                     }
                 }
             }
