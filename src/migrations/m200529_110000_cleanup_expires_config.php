@@ -11,10 +11,8 @@ use Craft;
 use craft\db\Migration;
 use craft\db\Table;
 use craft\googlecloud\Fs;
-use craft\googlecloud\Volume;
 use craft\helpers\Json;
 use craft\services\ProjectConfig;
-use craft\services\Volumes;
 
 /**
  * Installation Migration

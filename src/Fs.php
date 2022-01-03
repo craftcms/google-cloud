@@ -151,7 +151,7 @@ class Fs extends FlysystemFs
         $client = static::client($config);
 
         /**
-         * @var $buckets Bucket[]
+         * @var Bucket[] $buckets
          */
         $buckets = $client->buckets(['projection' => 'noAcl']);
 
@@ -216,7 +216,7 @@ class Fs extends FlysystemFs
     {
         try {
             parent::deleteFile($path);
-        } catch (\Throwable $exception) {
+        } catch (\Exception $exception) {
             Craft::$app->getErrorHandler()->logException($exception);
             throw new FsException(Craft::t('google-cloud', 'Could not delete file due to bucket’s retention policy'), 0, $exception);
         }
@@ -259,7 +259,7 @@ class Fs extends FlysystemFs
             $expires = new DateTime();
             $now = new DateTime();
             $expires->modify('+' . $this->expires);
-            $diff = $expires->format('U') - $now->format('U');
+            $diff = (int)$expires->format('U') - (int)$now->format('U');
 
             if (!isset($config['metadata'])) {
                 $config['metadata'] = [];

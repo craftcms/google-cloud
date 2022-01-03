@@ -18,7 +18,7 @@ class DefaultController extends BaseController
     /**
      * @inheritdoc
      */
-    public function init()
+    public function init(): void
     {
         parent::init();
         $this->defaultAction = 'load-bucket-data';
