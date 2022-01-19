@@ -3,8 +3,7 @@
 namespace craft\googlecloud;
 
 use craft\events\RegisterComponentTypesEvent;
-use craft\services\Filesystems;
-use craft\services\Volumes;
+use craft\services\Fs as FsService;
 use yii\base\Event;
 
 
@@ -34,7 +33,7 @@ class Plugin extends \craft\base\Plugin
     {
         parent::init();
 
-        Event::on(Filesystems::class, Filesystems::EVENT_REGISTER_FILESYSTEM_TYPES, function(RegisterComponentTypesEvent $event) {
+        Event::on(FsService::class, FsService::EVENT_REGISTER_FILESYSTEM_TYPES, function(RegisterComponentTypesEvent $event) {
             $event->types[] = Fs::class;
         });
     }
