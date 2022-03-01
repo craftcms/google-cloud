@@ -29,6 +29,7 @@
   "minimum-stability": "dev",
   "require": {
     "php": "^8.0.2",
+    "craftcms/cms": "^4.0.0-alpha.1",
     "craftcms/craft-flysystem": "^1.0.0-alpha",
     "league/flysystem-google-cloud-storage": "^2.0.0"
   },
