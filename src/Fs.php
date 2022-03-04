@@ -34,9 +34,6 @@ use League\Flysystem\GoogleCloudStorage\PortableVisibilityHandler;
  */
 class Fs extends FlysystemFs
 {
-    // Static
-    // =========================================================================
-
     /**
      * @inheritdoc
      */
@@ -44,9 +41,6 @@ class Fs extends FlysystemFs
     {
         return 'Google Cloud Storage';
     }
-
-    // Properties
-    // =========================================================================
 
     /**
      * @var string Subfolder to use
@@ -77,9 +71,6 @@ class Fs extends FlysystemFs
      * @var string Bucket selection mode ('choose' or 'manual')
      */
     public string $bucketSelectionMode = 'choose';
-
-    // Public Methods
-    // =========================================================================
 
     /**
      * @inheritdoc
@@ -146,13 +137,11 @@ class Fs extends FlysystemFs
     public static function loadBucketList(string $projectId, string $keyFileContents): array
     {
         // Any region will do.
-        $config = static::_buildConfigArray($projectId, $keyFileContents);
+        $config = self::_buildConfigArray($projectId, $keyFileContents);
 
         $client = static::client($config);
 
-        /**
-         * @var Bucket[] $buckets
-         */
+        /** @var Bucket[] $buckets */
         $buckets = $client->buckets(['projection' => 'noAcl']);
 
         $bucketList = [];
@@ -216,14 +205,12 @@ class Fs extends FlysystemFs
     {
         try {
             parent::deleteFile($path);
-        } catch (\Exception $exception) {
+        } catch (\Throwable $exception) {
+            /** @phpstan-ignore-next-line */
             Craft::$app->getErrorHandler()->logException($exception);
             throw new FsException(Craft::t('google-cloud', 'Could not delete file due to bucket’s retention policy'), 0, $exception);
         }
     }
-
-    // Protected Methods
-    // =========================================================================
 
     /**
      * @inheritdoc
@@ -270,9 +257,6 @@ class Fs extends FlysystemFs
         return parent::addFileMetadataToConfig($config);
     }
 
-    // Private Methods
-    // =========================================================================
-
     /**
      * Returns the parsed subfolder path
      *
@@ -296,7 +280,7 @@ class Fs extends FlysystemFs
         $projectId = Craft::parseEnv($this->projectId);
         $keyFileContents = Craft::parseEnv($this->keyFileContents);
 
-        return static::_buildConfigArray($projectId, $keyFileContents);
+        return self::_buildConfigArray($projectId, $keyFileContents);
     }
 
     /**

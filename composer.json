@@ -27,6 +27,7 @@
     "rss": "https://github.com/craftcms/google-cloud/commits/master.atom"
   },
   "minimum-stability": "dev",
+  "prefer-stable": true,
   "require": {
     "php": "^8.0.2",
     "craftcms/cms": "^4.0.0-alpha.1",
@@ -34,7 +35,7 @@
     "league/flysystem-google-cloud-storage": "^2.0.0"
   },
   "require-dev": {
-    "phpstan/phpstan": "^1.4.6",
+    "craftcms/phpstan": "dev-main",
     "craftcms/rector": "dev-main"
   },
   "autoload": {
@@ -55,6 +56,5 @@
       "yiisoft/yii2-composer": true,
       "craftcms/plugin-installer": true
     }
-  },
-  "prefer-stable": true
+  }
 }

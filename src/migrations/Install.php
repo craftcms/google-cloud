@@ -21,9 +21,6 @@ use craft\services\ProjectConfig;
  */
 class Install extends Migration
 {
-    // Public Methods
-    // =========================================================================
-
     /**
      * @inheritdoc
      */
