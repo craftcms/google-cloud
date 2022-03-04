@@ -139,13 +139,11 @@ class Volume extends FlysystemVolume
     public static function loadBucketList(string $projectId, string $keyFileContents)
     {
         // Any region will do.
-        $config = static::_buildConfigArray($projectId, $keyFileContents);
+        $config = self::_buildConfigArray($projectId, $keyFileContents);
 
         $client = static::client($config);
 
-        /**
-         * @var $buckets Bucket[]
-         */
+        /** @var Bucket[] $buckets */
         $buckets = $client->buckets(['projection' => 'noAcl']);
 
         $bucketList = [];
@@ -207,6 +205,7 @@ class Volume extends FlysystemVolume
         try {
             parent::deleteFile($path);
         } catch (\Throwable $exception) {
+            /** @phpstan-ignore-next-line */
             Craft::$app->getErrorHandler()->logException($exception);
             throw new VolumeException(Craft::t('google-cloud', 'Could not delete file due to bucket’s retention policy'), 0, $exception);
         }
@@ -229,7 +228,7 @@ class Volume extends FlysystemVolume
     /**
      * Get the Google Cloud Storage client.
      *
-     * @param $config
+     * @param array $config
      * @return StorageClient
      */
     protected static function client(array $config = []): StorageClient
@@ -280,7 +279,7 @@ class Volume extends FlysystemVolume
         $projectId = Craft::parseEnv($this->projectId);
         $keyFileContents = Craft::parseEnv($this->keyFileContents);
 
-        return static::_buildConfigArray($projectId, $keyFileContents);
+        return self::_buildConfigArray($projectId, $keyFileContents);
     }
 
     /**
