@@ -4,6 +4,7 @@ namespace craft\googlecloud\controllers;
 
 use Craft;
 use craft\googlecloud\Fs;
+use craft\helpers\App;
 use craft\web\Controller as BaseController;
 use yii\web\Response;
 
@@ -35,8 +36,8 @@ class DefaultController extends BaseController
         $this->requireAcceptsJson();
 
         $request = Craft::$app->getRequest();
-        $projectId = Craft::parseEnv($request->getRequiredBodyParam('projectId'));
-        $keyFileContents = Craft::parseEnv($request->getRequiredBodyParam('keyFileContents'));
+        $projectId = App::parseEnv($request->getRequiredBodyParam('projectId'));
+        $keyFileContents = App::parseEnv($request->getRequiredBodyParam('keyFileContents'));
 
         try {
             return $this->asJson(Fs::loadBucketList($projectId, $keyFileContents));
