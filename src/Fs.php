@@ -199,7 +199,7 @@ class Fs extends FlysystemFs
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     public function deleteFile(string $path): void
     {
@@ -210,6 +210,14 @@ class Fs extends FlysystemFs
             Craft::$app->getErrorHandler()->logException($exception);
             throw new FsException(Craft::t('google-cloud', 'Could not delete file due to bucket’s retention policy'), 0, $exception);
         }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function invalidateCdnPath(string $path): bool
+    {
+        return true;
     }
 
     /**
