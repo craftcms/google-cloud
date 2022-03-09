@@ -10,7 +10,6 @@ namespace craft\googlecloud\migrations;
 use Craft;
 use craft\db\Migration;
 use craft\googlecloud\Fs;
-use craft\googlecloud\Volume;
 use craft\services\ProjectConfig;
 
 /**
