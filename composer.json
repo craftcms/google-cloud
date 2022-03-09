@@ -35,6 +35,7 @@
     "league/flysystem-google-cloud-storage": "^3.0.0"
   },
   "require-dev": {
+    "craftcms/ecs": "dev-main",
     "craftcms/phpstan": "dev-main",
     "craftcms/rector": "dev-main"
   },
@@ -49,6 +50,8 @@
     "documentationUrl": "https://github.com/craftcms/google-cloud/blob/master/README.md"
   },
   "scripts": {
+    "check-cs": "ecs check --ansi",
+    "fix-cs": "ecs check --ansi --fix",
     "phpstan": "phpstan --memory-limit=1G"
   },
   "config": {
