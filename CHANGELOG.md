@@ -1,5 +1,10 @@
 # Release Notes for Google Cloud Storage for Craft CMS
 
+## 2.0.0-beta.1 - 2022-03-08
+
+### Added
+- Added Craft 4 compatibility.
+
 ## 1.4.1 - 2021-07-13
 - Allow manual bucket selection. ([#21]((https://github.com/craftcms/google-cloud/issues/21), [#24]((https://github.com/craftcms/google-cloud/issues/24))
 
