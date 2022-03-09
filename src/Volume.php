@@ -151,7 +151,7 @@ class Volume extends FlysystemVolume
         foreach ($buckets as $bucket) {
             $bucketList[] = [
                 'bucket' => $bucket->name(),
-                'urlPrefix' => 'http://storage.googleapis.com/'.$bucket->name().'/',
+                'urlPrefix' => 'http://storage.googleapis.com/' . $bucket->name() . '/',
             ];
         }
 
@@ -244,13 +244,13 @@ class Volume extends FlysystemVolume
         if (!empty($this->expires) && DateTimeHelper::isValidIntervalString($this->expires)) {
             $expires = new DateTime();
             $now = new DateTime();
-            $expires->modify('+'.$this->expires);
+            $expires->modify('+' . $this->expires);
             $diff = $expires->format('U') - $now->format('U');
 
             if (!isset($config['metadata'])) {
                 $config['metadata'] = [];
             }
-            $config['metadata']['cacheControl'] = 'public,max-age='.$diff.', must-revalidate';
+            $config['metadata']['cacheControl'] = 'public,max-age=' . $diff . ', must-revalidate';
         }
 
         return parent::addFileMetadataToConfig($config);
@@ -266,7 +266,6 @@ class Volume extends FlysystemVolume
             return $subfolder . '/';
         }
         return '';
-
     }
 
     /**

@@ -9,7 +9,6 @@ namespace craft\googlecloud\migrations;
 
 use Craft;
 use craft\db\Migration;
-use craft\db\Query;
 use craft\googlecloud\Volume;
 use craft\helpers\Json;
 use craft\services\Volumes;
