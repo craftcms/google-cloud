@@ -1,6 +1,6 @@
 # Release Notes for Google Cloud Storage for Craft CMS
 
-## 2.0.0-beta.1 - 2022-03-08
+## 2.0.0 - 2022-05-03
 
 ### Added
 - Added Craft 4 compatibility.
