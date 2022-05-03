@@ -2,8 +2,6 @@
 
 This plugin provides a [Google Cloud Storage](https://cloud.google.com/storage/) integration for [Craft CMS](https://craftcms.com/).
 
-:warning: If you are updating from Craft 2, you will need to provide the contents of your Service Account Credentials JSON file for each Volume in their settings.
-
 ## Requirements
 
 This plugin requires Craft CMS 4.0 or later.
