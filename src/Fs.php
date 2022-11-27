@@ -207,7 +207,6 @@ class Fs extends FlysystemFs
         try {
             parent::deleteFile($path);
         } catch (\Throwable $exception) {
-            /** @phpstan-ignore-next-line */
             Craft::$app->getErrorHandler()->logException($exception);
             throw new FsException(Craft::t('google-cloud', 'Could not delete file due to bucket’s retention policy'), 0, $exception);
         }
