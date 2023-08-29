@@ -74,6 +74,11 @@ class Fs extends FlysystemFs
     public string $bucketSelectionMode = 'choose';
 
     /**
+     * @var string Default Object Visibility ('' for default behaviour or 'public' or 'private')
+     */
+    public string $visibility = '';
+
+    /**
      * @inheritdoc
      */
     public function __construct(array $config = [])
@@ -315,5 +320,15 @@ class Fs extends FlysystemFs
         $config['authHttpHandler'] = $handler;
 
         return $config;
+    }
+
+    protected function visibility(): string
+    {
+        if(empty($this->visibility))
+        {
+            return parent::visibility();
+        }
+
+        return $this->visibility;
     }
 }

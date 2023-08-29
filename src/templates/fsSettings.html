@@ -39,7 +39,7 @@
         toggle: true,
         targetPrefix: '.bsm-'
         }) }}
-    
+
         <div class="bsm-choose{% if fs.bucketSelectionMode == 'manual' %} hidden{% endif %}">
             {{ forms.select({
             id: 'bucket',
@@ -56,7 +56,7 @@
         <div class="bsm-choose{% if fs.bucketSelectionMode == 'manual' %} hidden{% endif %}">
             <div class="spinner hidden"></div>
         </div>
-    
+
         <div class="bsm-manual{% if fs.bucketSelectionMode == 'choose' %} hidden{% endif %} flex-grow">
             {{ forms.autosuggest({
             label: "Bucket"|t('google-cloud'),
@@ -76,6 +76,23 @@
     required: true,
     errors: fs.getErrors('bucket'),
 }, bucketInput) }}
+
+
+<div class="field">
+    <div class="heading">
+        <label for="visibility">{{ "Visibility"|t('google-cloud') }}</label>
+        <div class="instructions">{{ "The default visibility setting to apply to new files."|t('google-cloud') }}</div>
+    </div>
+    {{ forms.select({
+        name: 'visibility',
+        options: [
+        { label: 'Default'|t('google-cloud'), value: '' },
+        { label: 'Public'|t('google-cloud'), value: 'public' },
+        { label: 'Private'|t('google-cloud'), value: 'private' }
+        ],
+        value: fs.visibility,
+    }) }}
+</div>
 
 {{ forms.autosuggestField({
     label: "Subfolder"|t('google-cloud'),
