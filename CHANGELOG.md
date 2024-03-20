@@ -1,5 +1,9 @@
 # Release Notes for Google Cloud Storage for Craft CMS
 
+## Unreleased
+
+- Added visibility setting. ([#37](https://github.com/craftcms/google-cloud/pull/37), [#35](https://github.com/craftcms/google-cloud/pull/35))
+
 ## 2.1.0 - 2024-03-19
 
 - Added Craft 5 compatibility.
