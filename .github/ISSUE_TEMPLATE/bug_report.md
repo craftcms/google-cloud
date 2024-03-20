@@ -2,7 +2,7 @@
 name: Bug Report
 about: Report an issue or unexpected behavior
 labels:
-  - Plugins → # Linear
+  - Plugins # Linear
   - Plugins → Google Cloud Storage # Linear
   - Bug # Linear
 ---
