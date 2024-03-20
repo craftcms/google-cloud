@@ -4,7 +4,7 @@ about: Report an issue or unexpected behavior
 labels:
   - Plugins # Linear
   - Plugins → Google Cloud Storage # Linear
-  - Bug # Linear
+  - bug # Linear
 ---
 
 ### Description
