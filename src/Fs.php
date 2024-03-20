@@ -24,6 +24,7 @@ use Google\Cloud\Storage\StorageClient;
 use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\GoogleCloudStorage\GoogleCloudStorageAdapter;
 use League\Flysystem\GoogleCloudStorage\PortableVisibilityHandler;
+use League\Flysystem\Visibility;
 
 /**
  * Class Fs
@@ -74,6 +75,12 @@ class Fs extends FlysystemFs
     public string $bucketSelectionMode = 'choose';
 
     /**
+     * @var ?string Default object visibility (null, 'public', 'private')
+     *              If null, visibility will be determined by self::$hasUrls
+     */
+    public ?string $visibility = null;
+
+    /**
      * @inheritdoc
      */
     public function __construct(array $config = [])
@@ -112,8 +119,22 @@ class Fs extends FlysystemFs
     {
         $rules = parent::rules();
         $rules[] = [['bucket', 'projectId'], 'required'];
-
+        $rules[] = [
+            ['visibility'],
+            'in',
+            'range' => array_keys($this->getVisibilityOptions()),
+            'strict' => true,
+        ];
         return $rules;
+    }
+
+    public function getVisibilityOptions(): array
+    {
+        return [
+            null => Craft::t('google-cloud', 'Automatic'),
+            Visibility::PUBLIC => Craft::t('google-cloud', 'Public'),
+            Visibility::PRIVATE => Craft::t('google-cloud', 'Private'),
+        ];
     }
 
     /**
@@ -315,5 +336,10 @@ class Fs extends FlysystemFs
         $config['authHttpHandler'] = $handler;
 
         return $config;
+    }
+
+    protected function visibility(): string
+    {
+        return $this->visibility ?? parent::visibility();
     }
 }

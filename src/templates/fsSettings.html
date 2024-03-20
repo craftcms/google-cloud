@@ -39,7 +39,7 @@
         toggle: true,
         targetPrefix: '.bsm-'
         }) }}
-    
+
         <div class="bsm-choose{% if fs.bucketSelectionMode == 'manual' %} hidden{% endif %}">
             {{ forms.select({
             id: 'bucket',
@@ -56,7 +56,7 @@
         <div class="bsm-choose{% if fs.bucketSelectionMode == 'manual' %} hidden{% endif %}">
             <div class="spinner hidden"></div>
         </div>
-    
+
         <div class="bsm-manual{% if fs.bucketSelectionMode == 'choose' %} hidden{% endif %} flex-grow">
             {{ forms.autosuggest({
             label: "Bucket"|t('google-cloud'),
@@ -120,8 +120,19 @@
 
 {{ forms.field({
     label: "Cache Duration"|t('google-cloud'),
-    instructions: "The Cache-Control duration that assets should be uploaded to the cloud with.",
+    instructions: 'The Cache-Control duration that assets should be uploaded with.'|t('google-cloud'),
     id: 'cacheDuration',
 }, cacheInput) }}
+
+{{ forms.selectField({
+    label: 'Visibility'|t('google-cloud'),
+    instructions: 'The default visibility that assets should be uploaded with.'|t('google-cloud'),
+    id: 'visibility',
+    name: 'visibility',
+    errors: fs.getErrors('visibility'),
+    value: fs.visibility,
+    options: fs.getVisibilityOptions(),
+    tip: "If automatic, the value will be determined by whether this filesystem has public URLs."
+}) }}
 
 {% do view.registerAssetBundle("craft\\googlecloud\\GoogleCloudBundle") %}
