@@ -75,8 +75,9 @@ class Fs extends FlysystemFs
     public string $bucketSelectionMode = 'choose';
 
     /**
-     * @var ?string Default object visibility (null, 'public', 'private')
-     *              If null, visibility will be determined by self::$hasUrls
+     * @var string|null The default object visibility (`public` or `private`).
+     * If `null`, visibility will be determined by [[$hasUrls]].
+     * @since 2.2.0
      */
     public ?string $visibility = null;
 
@@ -122,7 +123,7 @@ class Fs extends FlysystemFs
         $rules[] = [
             ['visibility'],
             'in',
-            'range' => array_keys($this->getVisibilityOptions()),
+            'range' => [Visibility::PUBLIC, Visibility::PRIVATE],
             'strict' => true,
         ];
         return $rules;
@@ -131,9 +132,9 @@ class Fs extends FlysystemFs
     public function getVisibilityOptions(): array
     {
         return [
-            null => Craft::t('google-cloud', 'Automatic'),
-            Visibility::PUBLIC => Craft::t('google-cloud', 'Public'),
-            Visibility::PRIVATE => Craft::t('google-cloud', 'Private'),
+            ['value' => '', 'label' => Craft::t('google-cloud', 'Automatic')],
+            ['value' => Visibility::PUBLIC, 'label' => Craft::t('google-cloud', 'Public')],
+            ['value' => Visibility::PRIVATE, 'label' => Craft::t('google-cloud', 'Private')],
         ];
     }
 
@@ -338,6 +339,9 @@ class Fs extends FlysystemFs
         return $config;
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function visibility(): string
     {
         return $this->visibility ?? parent::visibility();
