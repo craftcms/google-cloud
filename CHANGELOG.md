@@ -1,8 +1,8 @@
 # Release Notes for Google Cloud Storage for Craft CMS
 
-## Unreleased
+## 2.2.0 - 2024-03-21
 
-- Added visibility setting. ([#37](https://github.com/craftcms/google-cloud/pull/37), [#35](https://github.com/craftcms/google-cloud/pull/35))
+- Added the “Visibility” filesystem setting. ([#35](https://github.com/craftcms/google-cloud/pull/35))
 
 ## 2.1.0 - 2024-03-19
 
