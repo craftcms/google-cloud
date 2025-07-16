@@ -139,7 +139,7 @@ class Fs extends FlysystemFs
             ['value' => '', 'label' => Craft::t('google-cloud', 'Automatic')],
             ['value' => Visibility::PUBLIC, 'label' => Craft::t('google-cloud', 'Public')],
             ['value' => Visibility::PRIVATE, 'label' => Craft::t('google-cloud', 'Private')],
-            ['value' => self::UNIFORM_BUCKET_LEVEL_ACCESS, 'label' => Craft::t('google-cloud', 'Uniform Bucket Level Access')],
+            ['value' => self::UNIFORM_BUCKET_LEVEL_ACCESS, 'label' => Craft::t('google-cloud', 'Uniform Bucket-Level Access')],
         ];
     }
 

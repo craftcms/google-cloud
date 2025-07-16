@@ -31,10 +31,11 @@ composer require craftcms/google-cloud
 
 ## Setup
 
-Your Google Cloud bucket must use Google's `Fine grained` (per object) permissions, not `Uniform` (per bucket).
-
+In case your Google Cloud bucket uses Google's `Fine grained` (per object) permissions:
 On the permissions table for the new bucket, grant `Storage Object Viewer` to `allUsers`. The `Storage Admin` role should be granted to the service account the credentials are tied to.
 
 To create a new asset volume for your Google Cloud Storage bucket, go to Settings → Assets, create a new volume, and set the Volume Type setting to “Google Cloud Storage”.
 
 > **Tip:** The Project ID, Bucket, and Subfolder settings can be set to environment variables. See [Environmental Configuration](https://docs.craftcms.com/v3/config/environments.html) in the Craft docs to learn more about that.
+
+In case your Google Cloud bucket uses Uniform bucket-level access, just make sure to set the `Visibility` in your volume settings to `Uniform Bucket-Level Access`.
