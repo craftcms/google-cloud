@@ -24,6 +24,7 @@ use Google\Cloud\Storage\StorageClient;
 use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\GoogleCloudStorage\GoogleCloudStorageAdapter;
 use League\Flysystem\GoogleCloudStorage\PortableVisibilityHandler;
+use League\Flysystem\GoogleCloudStorage\UniformBucketLevelAccessVisibility;
 use League\Flysystem\Visibility;
 
 /**
@@ -36,6 +37,9 @@ use League\Flysystem\Visibility;
  */
 class Fs extends FlysystemFs
 {
+
+    public const UNIFORM_BUCKET_LEVEL_ACCESS = 'uniformBucketLevelAccess';
+
     /**
      * @inheritdoc
      */
@@ -135,6 +139,7 @@ class Fs extends FlysystemFs
             ['value' => '', 'label' => Craft::t('google-cloud', 'Automatic')],
             ['value' => Visibility::PUBLIC, 'label' => Craft::t('google-cloud', 'Public')],
             ['value' => Visibility::PRIVATE, 'label' => Craft::t('google-cloud', 'Private')],
+            ['value' => self::UNIFORM_BUCKET_LEVEL_ACCESS, 'label' => Craft::t('google-cloud', 'Uniform Bucket Level Access')],
         ];
     }
 
@@ -253,7 +258,14 @@ class Fs extends FlysystemFs
         $client = static::client($config);
         $bucket = $client->bucket(Craft::parseEnv($this->bucket));
 
-        return new GoogleCloudStorageAdapter($bucket, $this->_subfolder(), new PortableVisibilityHandler('allUsers'));
+        $visibilityHandler = null;
+        if ($this->visibility === self::UNIFORM_BUCKET_LEVEL_ACCESS) {
+            $visibilityHandler = new UniformBucketLevelAccessVisibility();
+        } else {
+            $visibilityHandler = new PortableVisibilityHandler('allUsers');
+        }
+
+        return new GoogleCloudStorageAdapter($bucket, $this->_subfolder(), $visibilityHandler);
     }
 
     /**
