@@ -1,5 +1,9 @@
 # Release Notes for Google Cloud Storage for Craft CMS
 
+## Unreleased
+
+- Fixed a [low-severity](https://github.com/craftcms/cms/security/policy#severity--remediation) information disclosure vulnerability. (GHSA-67cr-jmh8-4jpq)
+
 ## 2.2.0 - 2024-03-21
 
 - Added the “Visibility” filesystem setting. ([#35](https://github.com/craftcms/google-cloud/pull/35))

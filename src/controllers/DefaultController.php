@@ -25,6 +25,7 @@ class DefaultController extends BaseController
      */
     public function actionLoadBucketData()
     {
+        $this->requireAdmin();
         $this->requirePostRequest();
         $this->requireAcceptsJson();
 
