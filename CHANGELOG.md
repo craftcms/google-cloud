@@ -1,6 +1,6 @@
 # Release Notes for Google Cloud Storage for Craft CMS
 
-## Unreleased
+## 2.2.2 - 2026-02-19
 
 - Fixed a PHP error that could occur if a Subfolder path was set to a nonexistent environment variable. ([craftcms/aws-s3#189](https://github.com/craftcms/aws-s3/issues/189))
 
