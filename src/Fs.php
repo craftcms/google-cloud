@@ -13,6 +13,7 @@ use Craft;
 use craft\behaviors\EnvAttributeParserBehavior;
 use craft\errors\FsException;
 use craft\flysystem\base\FlysystemFs;
+use craft\helpers\App;
 use craft\helpers\ArrayHelper;
 use craft\helpers\Assets;
 use craft\helpers\DateTimeHelper;
@@ -294,7 +295,7 @@ class Fs extends FlysystemFs
      */
     private function _subfolder(): string
     {
-        if ($this->subfolder && ($subfolder = rtrim(Craft::parseEnv($this->subfolder), '/')) !== '') {
+        if ($this->subfolder && ($subfolder = rtrim((string)App::parseEnv($this->subfolder), '/')) !== '') {
             return $subfolder . '/';
         }
         return '';
