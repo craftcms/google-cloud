@@ -6,7 +6,7 @@
 
 ## 2.2.1 - 2026-02-17
 
-- Fixed a [low-severity](https://github.com/craftcms/cms/security/policy#severity--remediation) information disclosure vulnerability. (GHSA-67cr-jmh8-4jpq)
+- Fixed a [low-severity](https://github.com/craftcms/cms/security/policy#severity--remediation) information disclosure vulnerability. ([GHSA-67cr-jmh8-4jpq](https://github.com/craftcms/google-cloud/security/advisories/GHSA-67cr-jmh8-4jpq))
 
 ## 2.2.0 - 2024-03-21
 
