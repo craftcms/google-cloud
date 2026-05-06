@@ -22,14 +22,14 @@
     "email": "support@craftcms.com",
     "issues": "https://github.com/craftcms/google-cloud/issues?state=open",
     "source": "https://github.com/craftcms/google-cloud",
-    "docs": "https://github.com/craftcms/google-cloud/blob/master/README.md",
-    "rss": "https://github.com/craftcms/google-cloud/commits/master.atom"
+    "docs": "https://github.com/craftcms/google-cloud/blob/2.x/README.md",
+    "rss": "https://github.com/craftcms/google-cloud/commits/2.x.atom"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
     "php": "^8.0.2",
-    "craftcms/cms": "^4.0.0-alpha.1|^5.0.0-beta.1",
+    "craftcms/cms": "^4.0.0-alpha.1|^5.0.0-beta.1|^6.0.0-alpha.1",
     "craftcms/flysystem": "^1.0.0-beta.2|^2.0.0",
     "league/flysystem-google-cloud-storage": "^3.0.0"
   },
@@ -46,7 +46,7 @@
   "extra": {
     "name": "Google Cloud Storage",
     "handle": "google-cloud",
-    "documentationUrl": "https://github.com/craftcms/google-cloud/blob/master/README.md"
+    "documentationUrl": "https://github.com/craftcms/google-cloud/blob/2.x/README.md"
   },
   "scripts": {
     "check-cs": "ecs check --ansi",
