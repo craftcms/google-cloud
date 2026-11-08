@@ -26,7 +26,7 @@ When you upgrade, Craft asks you to define a disk in `config/filesystems.php` fo
 2. Upgrade Craft.
 3. Restore the filesystems’ `fs` entries in your project config from version control, and run `php artisan craft:project-config:apply`.
 
-To move to native Laravel disks instead, install [spatie/laravel-google-cloud-storage](https://github.com/spatie/laravel-google-cloud-storage) and define a `gcs` disk for each filesystem:
+To move to native Laravel disks instead, install [spatie/laravel-google-cloud-storage](https://github.com/spatie/laravel-google-cloud-storage) 2.4.2 or later (earlier versions ignore volume subpaths) and define a `gcs` disk for each filesystem:
 
 ```php
 'disks' => [
@@ -43,9 +43,6 @@ To move to native Laravel disks instead, install [spatie/laravel-google-cloud-st
 ```
 
 Use `path_prefix` for the filesystem’s Subfolder setting, and `storage_api_uri` for its base URL. Native disks don’t apply the Cache Duration setting.
-
-> [!WARNING]
-> Until [spatie/laravel-google-cloud-storage#117](https://github.com/spatie/laravel-google-cloud-storage/pull/117) is merged and tagged, the `gcs` driver ignores volume subpaths, so volumes with a subpath can’t find their existing files.
 
 ## Installation
 
