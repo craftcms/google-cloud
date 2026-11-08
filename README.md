@@ -6,6 +6,47 @@ This plugin provides a [Google Cloud Storage](https://cloud.google.com/storage/)
 
 This plugin requires Craft CMS 4.0.0+ or 5.0.0+ or 6.0.0-alpha.1+ with the `craftcms/yii2-adapter` package.
 
+### Craft 6
+
+Craft 6 replaces filesystems with [Laravel disks](https://laravel.com/docs/filesystem), and has no settings screens for filesystems. With the `craftcms/yii2-adapter` package installed, Google Cloud Storage filesystems defined in your project config keep working.
+
+When you upgrade, Craft asks you to define a disk in `config/filesystems.php` for each filesystem your volumes use, and then removes all filesystem definitions from your project config, including Google Cloud Storage ones. Laravel has no built-in Google Cloud Storage driver. To keep using this plugin:
+
+1. Before upgrading, add a disk that points to each Google Cloud Storage filesystem, using the filesystem’s handle for both the disk name and `fsHandle`:
+
+   ```php
+   'disks' => [
+       'myGoogleFs' => [
+           'driver' => 'craft-fs-bridge',
+           'fsHandle' => 'myGoogleFs',
+       ],
+   ],
+   ```
+
+2. Upgrade Craft.
+3. Restore the filesystems’ `fs` entries in your project config from version control, and run `php artisan craft:project-config:apply`.
+
+To move to native Laravel disks instead, install [spatie/laravel-google-cloud-storage](https://github.com/spatie/laravel-google-cloud-storage) and define a `gcs` disk for each filesystem:
+
+```php
+'disks' => [
+    'myGoogleFs' => [
+        'driver' => 'gcs',
+        'project_id' => env('GOOGLE_CLOUD_PROJECT_ID'),
+        'key_file' => json_decode((string) env('GOOGLE_CLOUD_KEY_FILE'), true),
+        'bucket' => env('GOOGLE_CLOUD_BUCKET'),
+        'path_prefix' => 'path/to/subfolder',
+        'storage_api_uri' => 'https://my-bucket.example.com',
+        'visibility' => 'public',
+    ],
+],
+```
+
+Use `path_prefix` for the filesystem’s Subfolder setting, and `storage_api_uri` for its base URL. Native disks don’t apply the Cache Duration setting.
+
+> [!WARNING]
+> Until [spatie/laravel-google-cloud-storage#117](https://github.com/spatie/laravel-google-cloud-storage/pull/117) is merged and tagged, the `gcs` driver ignores volume subpaths, so volumes with a subpath can’t find their existing files.
+
 ## Installation
 
 You can install this plugin from the Plugin Store or with Composer.
